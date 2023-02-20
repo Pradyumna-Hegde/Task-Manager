@@ -1,1 +1,10 @@
-URI = `mongodb+srv://pradmin:<password>@cluster.uw21tc8.mongodb.net/?retryWrites=true&w=majority`;
+import mongoose from "mongoose";
+
+function connectDB(uri) {
+  return mongoose.connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+}
+
+export default connectDB;
