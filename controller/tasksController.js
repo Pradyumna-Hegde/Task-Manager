@@ -1,21 +1,66 @@
-const getAllTasksController = (req, res) => {
-  res.send("This will list all tasks");
+import Task from "../models/TaskModel.js";
+
+const getAllTasksController = async (req, res) => {
+  try {
+    const tasks = await Task.find({});
+    res.status(200).json({ tasks });
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
 };
 
-const createTaskController = (req, res) => {
-  res.json(req.body);
+const createTaskController = async (req, res) => {
+  try {
+    const task = await Task.create(req.body);
+    res.status(201).json({ task });
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
 };
 
-const getTaskController = (req, res) => {
-  res.json({ id: req.params.id });
+const getTaskController = async (req, res) => {
+  try {
+    const { id: taskId } = req.params;
+    const task = await Task.findOne({ _id: taskId });
+    if (!task) {
+      res.status(404).json({ msg: `No task found` });
+    }
+
+    res.status(200).json({ task });
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
 };
 
-const updateTaskController = (req, res) => {
-  res.send("This will update or (update) a new task");
+const updateTaskController = async (req, res) => {
+  try {
+    const { id: taskId } = req.params;
+    const task = await Task.findOneAndUpdate({ _id: taskId }, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    if (!task) {
+      res.status(404).json({ msg: `Task Not Found...!` });
+    }
+
+    res.status(200).json({ task });
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
 };
 
-const deleteTaskController = (req, res) => {
-  res.send("This will delete the task");
+const deleteTaskController = async (req, res) => {
+  try {
+    const { id: taskId } = req.params;
+    const task = await Task.findOneAndDelete({ _id: taskId });
+    if (!task) {
+      res.status(404).json({ msg: `Task Not Found...!` });
+    }
+
+    res.status(200).json({ task });
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
 };
 
 export {

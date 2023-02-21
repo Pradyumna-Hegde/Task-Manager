@@ -137,7 +137,7 @@ a {
   cursor: pointer;
   appearance: none;
   color: var(--white);
-  background: var(--primary-500);
+  background: var(--black);
   border: none;
   border-radius: var(--borderRadius);
   letter-spacing: var(--letterSpacing);
@@ -149,7 +149,7 @@ a {
 
 .btn:hover {
   color: var(--white);
-  background: var(--primary-700);
+  background: var(--grey-900);
   box-shadow: var(--shadow-2);
 }
 button.small {
@@ -194,7 +194,7 @@ textarea {
   border-radius: var(--borderRadius);
   background: var(--grey-50);
   border-color: transparent;
-  border: 1px solid var(--grey-300);
+  border: 1px solid var(--grey-900);
 }
 
 .form-row {
